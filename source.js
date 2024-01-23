@@ -1,7 +1,7 @@
 import { EventSource } from "extended-eventsource";
 
 // this is intended to fail (no credentials)
-const eventSource_0 = new EventSource("/events")
+const eventSource_0 = new EventSource("/events");
 
 // this works thanks to extended-eventsource
 const eventSource_1 = new EventSource(

@@ -29,7 +29,36 @@ index_html = """
 <meta charset=utf-8>
 <title>Extended Event Source Demo</title>
 <script src="bundle.js"></script>
-<strong>“Ma'am, this is a JavaScript demo!”</strong>
+<style>code { white-space: pre-wrap; }</style>
+<h1>Server-Sent Events</h1>
+<ul>
+<li>Web server does not close connection, keeps sending
+<li>One-way only (no client-to-server messages)
+<li><code>Content-Type: text/event-stream</code>
+<li>JavaScript API: <code>EventSource</code>
+<li>HTTP Basic Auth works
+<li>Headers can not be set
+</ul>
+<code>
+import { EventSource } from "extended-eventsource";
+
+// this is intended to fail (no credentials)
+const eventSource_0 = new EventSource("/events");
+
+// this works thanks to extended-eventsource
+const eventSource_1 = new EventSource(
+    "/events",
+    {
+        headers: {
+            Authorization: "Bearer FooBar"
+        }
+    }
+);
+
+eventSource_0.onmessage = eventSource_1.onmessage = (event) => {
+    console.log(`message ${event.lastEventId}: ${event.data}`);
+};
+</code>
 """
 
 
